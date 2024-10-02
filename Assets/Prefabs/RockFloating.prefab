@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 4448749939875157608}
   - component: {fileID: 2049622735289610731}
   - component: {fileID: 5233686566466561321}
-  m_Layer: 16
+  - component: {fileID: 6671845442586213145}
+  m_Layer: 8
   m_Name: RockFloating
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -105,8 +106,35 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 9.95, y: 23.66, z: 4.4}
-  m_Center: {x: -10.26, y: -3.75, z: 11.56}
+  m_Size: {x: 11.08, y: 27.3, z: 10}
+  m_Center: {x: -7.09, y: -5, z: 13.3}
+--- !u!54 &6671845442586213145
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96974006118335291}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2771542719505223285
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +146,7 @@ GameObject:
   - component: {fileID: 1448945531639449718}
   - component: {fileID: 6150503335676938378}
   - component: {fileID: 4157226176200475030}
-  m_Layer: 16
+  m_Layer: 8
   m_Name: RockFloating01_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +229,7 @@ GameObject:
   - component: {fileID: 7006907094511493637}
   - component: {fileID: 7372885069128194963}
   - component: {fileID: 3953367305344460746}
-  m_Layer: 16
+  m_Layer: 8
   m_Name: RockFloating01_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -284,7 +312,7 @@ GameObject:
   - component: {fileID: 2543487444638827412}
   - component: {fileID: 7992028691289921317}
   - component: {fileID: 783424599452466153}
-  m_Layer: 16
+  m_Layer: 8
   m_Name: RockFloating01_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

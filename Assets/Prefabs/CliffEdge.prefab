@@ -176,10 +176,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1697693481978274252}
   - component: {fileID: 4090076006727588075}
-  - component: {fileID: 5864516577931356384}
+  - component: {fileID: 2582415550797936496}
   m_Layer: 16
   m_Name: CliffEdge
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -229,8 +229,8 @@ LODGroup:
     renderers:
     - renderer: {fileID: 1302264252262249242}
   m_Enabled: 1
---- !u!64 &5864516577931356384
-MeshCollider:
+--- !u!65 &2582415550797936496
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -247,10 +247,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300004, guid: 810a1b223d1ae12409785d307cb074cb, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 9.74, y: 4.68, z: 7.87}
+  m_Center: {x: -2.55, y: 0.45, z: -0.51}
 --- !u!1 &6809346594270374389
 GameObject:
   m_ObjectHideFlags: 0
