@@ -395,7 +395,15 @@ PrefabInstance:
       objectReference: {fileID: 901111503}
     - target: {fileID: 877381106619751916, guid: f41310331554740a7a1eeb421ea53a86, type: 3}
       propertyPath: jumpForce
-      value: 5
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 877381106619751916, guid: f41310331554740a7a1eeb421ea53a86, type: 3}
+      propertyPath: isGrounded
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 877381106619751916, guid: f41310331554740a7a1eeb421ea53a86, type: 3}
+      propertyPath: groundMask.m_Bits
+      value: 256
       objectReference: {fileID: 0}
     - target: {fileID: 2207680400602513673, guid: f41310331554740a7a1eeb421ea53a86, type: 3}
       propertyPath: movement
