@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody rb;
     public float forwardForce = 2000f;
     public float sideForce = 500f;
-    public float jumpForce = 1f; 
+    public float jumpForce = 700f; 
     public bool isGrounded = true; 
 
     
@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
         ProcessInput();
 
         CheckFallOff();
+
+        
     }
 
     // Method to add forward force to the player
@@ -40,12 +42,12 @@ public class PlayerMovement : MonoBehaviour
     // Method to process side movement input and jump input
     private void ProcessInput()
     {
-        if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)))
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             MoveRight();
         }
 
-        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             MoveLeft();
         }
@@ -54,6 +56,8 @@ public class PlayerMovement : MonoBehaviour
         {
             Jump();
         }
+
+        
     }
 
     private void MoveRight()
@@ -68,8 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        // rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
-        rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+        rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
         isGrounded = false;
     }
 
