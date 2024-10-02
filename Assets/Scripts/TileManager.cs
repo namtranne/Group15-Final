@@ -10,8 +10,6 @@ using UnityEngine;
 public class TileManager : MonoBehaviour
 {
     //public GameObject[] tilesPrefabs;
-    private List<Obstacle> obstableObject;
-    // private Coin coinObject;
     public GameObject[] obstacleTiles;
     public GameObject coinTiles;
     public GameObject roadOject;
@@ -23,28 +21,6 @@ public class TileManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        obstableObject = new List<Obstacle>();
-        for(int i = 0; i < obstacleTiles.Length; i++)
-        {
-            switch (i)
-            {
-                case 0:
-                    obstableObject.Add( new Wall () { obstacleTiles= obstacleTiles[i] });
-                    break;
-                // case 1:
-                //     obstableObject.Add(new FenceHigh() { obstacleTiles = obstacleTiles[i] });
-                //     break;
-                // case 2:
-                //     obstableObject.Add(new FenceLow() { obstacleTiles = obstacleTiles[i] });
-                //     break;
-                // case 3:
-                //     obstableObject.Add(new TrainX() { obstacleTiles = obstacleTiles[i] });
-                //     break;
-                // case 4:
-                //     obstableObject.Add(new TrainZ() { obstacleTiles = obstacleTiles[i] });
-                //     break;
-            }
-        }
         // coinObject = new Coin(coinTiles);
         for(int i=0;i<numberOfTiles;i++)
         {
@@ -77,25 +53,21 @@ public class TileManager : MonoBehaviour
         // }
         GameObject roadGo = Instantiate(roadOject, transform.forward * zSpawn, Quaternion.identity);
 
-        int numOfObsPerRow=Random.Range(1, 3);
-        int[] lanes = Enumerable.Range(0, 3).OrderBy(x => Random.Range(0, 3)).Take(2).ToArray();
-        for (int i = 1; i <= numOfObsPerRow; i++)
-        {
-            int obstacleIndex = Random.Range(0, obstableObject.Count);
-            Lane lane= (Lane)lanes[i-1];
-            // if (checkX(obstableObject[obstacleIndex]) && numOfObsPerRow != 1) continue;
-            Vector3 obsPos = obstableObject[obstacleIndex].Position(lane);
-            // Make the obstacle face in the same direction as the roadGo
-            Quaternion rotationToFaceRoad = Quaternion.AngleAxis(90, roadGo.transform.up) * roadGo.transform.rotation;
+        int obstacleIndex = Random.Range(0, obstacleTiles.Length);
+        // if (checkX(obstableObject[obstacleIndex]) && numOfObsPerRow != 1) continue;
+        // Vector3 obsPos = obstableObject[obstacleIndex].Position(lane);
+        // Make the obstacle face in the same direction as the roadGo
 
-            // Instantiate the object and make it face in the direction of the roadGo
-            GameObject obsGo = Instantiate(obstableObject[obstacleIndex].obstacleTiles, 
-                                        new Vector3(obsPos.x, obsPos.y, zSpawn), 
-                                        rotationToFaceRoad);
-            if (start) obsGo.SetActive(false);
-            obsGo.transform.parent = roadGo.transform;
+        // Instantiate the object and make it face in the direction of the roadGo
+        GameObject obsGo = Instantiate(obstacleTiles[obstacleIndex], 
+                                roadGo.transform.position, roadGo.transform.rotation);
+        // Set obsGo as a child of roadGo
+        obsGo.transform.SetParent(roadGo.transform);
+
+        // Set the local position relative to roadGo
+        obsGo.transform.localPosition = obstacleTiles[obstacleIndex].transform.localPosition;
             // if (checkX(obstableObject[obstacleIndex])) break;
-        }
+        
         // if(!start) GenerateCoin(roadGo);
         zSpawn += tileLength;
         activeTile.Add(roadGo);
