@@ -347,8 +347,11 @@ MonoBehaviour:
   - {fileID: 96974006118335291, guid: 9a594315ef65d40d386ee02243827430, type: 3}
   - {fileID: 7245033842957546047, guid: b48576437a1c94753bb7094f17aea336, type: 3}
   - {fileID: 2807866879302504136, guid: e932acbf168b644339ff1485af0bf1cc, type: 3}
-  - {fileID: 2807866879302504136, guid: e932acbf168b644339ff1485af0bf1cc, type: 3}
   - {fileID: 1905312624124433150, guid: 8ba18e50065fe4410bd5db315985a80c, type: 3}
+  - {fileID: 8342957240468952323, guid: 3e92c15ea91e74976aa2d33273398016, type: 3}
+  - {fileID: 2115008275390670, guid: 4bae6dae661e34cf182d73bceadbcac5, type: 3}
+  - {fileID: 8851907237115778829, guid: b376c869721cc4c508f3c5298e2c4c17, type: 3}
+  - {fileID: 2373776243133782825, guid: 77ec14e8372d047fe9aa7bf9a435857f, type: 3}
   coinTiles: {fileID: 0}
   roadOject: {fileID: 7709482668710337618, guid: 072d4a2a6d3594ebf8ac893db62d2be3, type: 3}
   zSpawn: 0
