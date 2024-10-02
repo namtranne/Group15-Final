@@ -66,6 +66,7 @@ public class TileManager : MonoBehaviour
 
         // Set the local position relative to roadGo
         obsGo.transform.localPosition = obstacleTiles[obstacleIndex].transform.localPosition;
+        obsGo.transform.localRotation = obstacleTiles[obstacleIndex].transform.localRotation;
             // if (checkX(obstableObject[obstacleIndex])) break;
         
         // if(!start) GenerateCoin(roadGo);
