@@ -8,10 +8,11 @@ public class PlayerCollision : MonoBehaviour
 
     void OnCollisionEnter(Collision colInfo)
     {
+        Debug.Log(123);
         if (colInfo.collider.tag == "Obstacle")
         {
             movement.enabled = false;
-            collisionSoundEffect.Play();
+            // collisionSoundEffect.Play();
             FindObjectOfType<GameManager>().EndGame();
         }
     }
