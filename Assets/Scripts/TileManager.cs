@@ -54,6 +54,7 @@ public class TileManager : MonoBehaviour
         GameObject roadGo = Instantiate(roadOject, transform.forward * zSpawn, Quaternion.identity);
 
         int obstacleIndex = Random.Range(0, obstacleTiles.Length);
+        // obstacleIndex = 3;
         // if (checkX(obstableObject[obstacleIndex]) && numOfObsPerRow != 1) continue;
         // Vector3 obsPos = obstableObject[obstacleIndex].Position(lane);
         // Make the obstacle face in the same direction as the roadGo
