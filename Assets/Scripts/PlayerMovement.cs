@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Public variables for the Rigidbody and movement forces
     public Rigidbody rb;
     public float forwardForce = 2000f;
     public float sideForce = 500f;
@@ -13,12 +12,10 @@ public class PlayerMovement : MonoBehaviour
 
     
     protected Animator m_Animator;
-
     protected static PlayerMovement s_Instance;
     public static PlayerMovement instance { get { return s_Instance; } }
 
-    // Called when the script instance is being loaded
-    void Awake()
+    private void Awake()
     {
         m_Animator = GetComponent<Animator>();
         s_Instance = this;
@@ -27,9 +24,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         MoveForward();
-
         ProcessInput();
-
         CheckFallOff();
 
         
@@ -40,13 +35,11 @@ public class PlayerMovement : MonoBehaviour
         forwardForce = Time.deltaTime * accelerationFactor;
     }
 
-    // Method to add forward force to the player
     private void MoveForward()
     {
         rb.AddForce(0, 0, forwardForce * Time.deltaTime);
     }
 
-    // Method to process side movement input and jump input
     private void ProcessInput()
     {
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
@@ -61,10 +54,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
+            Debug.Log("Jump");
             Jump();
         }
-
-        
     }
 
     private void MoveRight()
@@ -79,8 +71,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+        Debug.Log("Jump 2");
         rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
-        isGrounded = false;
+        isGrounded = false; // Set grounded to false immediately after jumping
     }
 
     private void CheckFallOff()
@@ -91,10 +84,19 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay(Collision collision)
+    private void CheckGrounded()
     {
-        // If the player is colliding with something tagged as ground, set isGrounded to true
-        if (collision.collider.tag == "Ground")
+        // Raycast down to check for ground
+        float rayDistance = 1.1f; // Adjust based on your player's height
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, rayDistance, groundMask);
+
+        // Debug.Log("Is Grounded: " + isGrounded);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // If the player collides with something tagged as ground, set isGrounded to true
+        if (collision.collider.CompareTag("Ground"))
         {
             isGrounded = true;
         }
@@ -102,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.collider.tag == "Ground")
+        if (collision.collider.CompareTag("Ground"))
         {
             isGrounded = false;
         }
