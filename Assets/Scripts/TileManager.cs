@@ -13,6 +13,7 @@ public class TileManager : MonoBehaviour
     public GameObject[] obstacleTiles;
     public GameObject coinTiles;
     public GameObject roadObject;
+    public GameObject[] fallingRoadObjects;
     public GameObject bridgeObject;
     public GameObject shortBridgeObject;
     public float zSpawn = 0;
@@ -49,18 +50,23 @@ public class TileManager : MonoBehaviour
     private void GeneratePath(bool start=false)
     {
         int obstacleIndex = Random.Range(0, 2);
-        // obstacleIndex = 2;
+        // obstacleIndex = 3;
         switch(obstacleIndex) {
             case 0 : {
                 GenerateRoad();
                 break;
             }
             case 1: {
+                // GenerateShortBridge();
                 GenerateBridge();
                 break;
             }
             case 2: {
                 GenerateShortBridge();
+                break;
+            }
+            case 3: {
+                GenerateFallingRoad();
                 break;
             }
         }
@@ -81,15 +87,22 @@ public class TileManager : MonoBehaviour
     }
 
     private void GenerateBridge() {
-        GameObject bridge = Instantiate(bridgeObject, transform.forward * zSpawn, Quaternion.identity);
+        GameObject bridge = Instantiate(bridgeObject, transform.forward * zSpawn + new Vector3(0,0,12), Quaternion.identity);
         activeTile.Add(bridge);
         zSpawn += tileLength;
     }
 
     private void GenerateShortBridge() {
-        GameObject bridge = Instantiate(shortBridgeObject, transform.forward * zSpawn, Quaternion.identity);
+        GameObject bridge = Instantiate(shortBridgeObject, transform.forward * zSpawn + new Vector3(0,0,18), Quaternion.identity);
         activeTile.Add(bridge);
         zSpawn += tileLength;
+    }
+
+    private void GenerateFallingRoad() {
+        int obstacleIndex = Random.Range(0, 2);
+        GameObject roadGo = Instantiate(fallingRoadObjects[obstacleIndex], transform.forward * zSpawn + new Vector3(2,0,0), Quaternion.identity);
+        zSpawn += tileLength;
+        activeTile.Add(roadGo);
     }
 
     // private void GenerateCoin(GameObject roadObject)
