@@ -30,7 +30,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void MoveForward()
     {
-        rb.AddForce(0, 0, forwardForce * Time.deltaTime);
+        if(!m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")){
+            rb.AddForce(0, 0, forwardForce * Time.deltaTime);
+        }
+        
     }
 
     private void ProcessInput()
