@@ -9,7 +9,19 @@ public class PlayerMovement : MonoBehaviour
     private int jumpCount = 0;
     public LayerMask groundMask; // Layer for ground objects
     private float accelerationFactor = 0.2f;
-    
+
+    // Boss-related variables
+    public GameObject bossPrefab; // Prefab for the boss object
+    private GameObject bossInstance; // Instance of the boss
+    public float bossSpawnDistance = 5f; // Distance behind the player where the boss spawns
+    public float bossSpeed = 1900f; // Boss movement speed
+    public bool isBossActive = false; // Tracks if the boss is currently active
+    public bool isRecovering = false; // Tracks if the player is in recovery mode
+    private float reducedSpeedMultiplier = 0.5f; // Multiplier for reducing player speed
+    private float recoveryTime = 5f; // Time to recover after collision
+    private float recoveryTimer;
+    private float bossCaptureDistance = 1.5f; // Distance to trigger capture
+
     protected Animator m_Animator;
     protected static PlayerMovement s_Instance;
     public static PlayerMovement instance { get { return s_Instance; } }
@@ -26,11 +38,30 @@ public class PlayerMovement : MonoBehaviour
         ProcessInput();
         CheckFallOff();
         CheckGrounded(); // Use raycasting to check if grounded
+
+        if (isBossActive)
+        {
+            MoveBossTowardsPlayer();
+            CheckBossCapture();
+        }
+
+        if (isRecovering)
+        {
+            recoveryTimer -= Time.deltaTime;
+            if (recoveryTimer <= 0)
+            {
+                RecoverPlayer();
+            }
+        }
     }
 
     private void MoveForward()
     {
-        rb.AddForce(0, 0, forwardForce * Time.deltaTime);
+        if (!m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            float currentForwardForce = forwardForce * (isRecovering ? reducedSpeedMultiplier : 1f);
+            rb.AddForce(0, 0, currentForwardForce * Time.deltaTime);
+        }
     }
 
     private void ProcessInput()
@@ -45,10 +76,8 @@ public class PlayerMovement : MonoBehaviour
             MoveLeft();
         }
 
-
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 1)
         {
-            Debug.Log("Jump");
             Jump();
         }
     }
@@ -80,29 +109,60 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckGrounded()
     {
-        // Raycast down to check for ground
-        float rayDistance = 1.1f; // Adjust based on your player's height
-        if(Physics.Raycast(transform.position, Vector3.down, rayDistance, groundMask)) {
-            jumpCount = 0;
-        }
-
-        // Debug.Log("Is Grounded: " + isGrounded);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        // If the player collides with something tagged as ground, set isGrounded to true
-        if (collision.collider.CompareTag("Ground"))
+        float rayDistance = 1.1f;
+        if (Physics.Raycast(transform.position, Vector3.down, rayDistance, groundMask))
         {
             jumpCount = 0;
         }
     }
 
-    // private void OnCollisionExit(Collision collision)
-    // {
-    //     if (collision.collider.CompareTag("Ground"))
-    //     {
-    //         isGrounded = false;
-    //     }
-    // }
+    public void TriggerBoss()
+    {
+        if (!isBossActive)
+        {
+            // Instantiate the boss prefab behind the player
+            Vector3 spawnPosition = transform.position - new Vector3(0, 0, bossSpawnDistance);
+            bossInstance = Instantiate(bossPrefab, spawnPosition, Quaternion.identity);
+            
+            isBossActive = true;
+            isRecovering = true;
+            recoveryTimer = recoveryTime;
+            forwardForce *= reducedSpeedMultiplier; // Reduce player speed
+        }
+    }
+
+    private void MoveBossTowardsPlayer()
+    {
+        if (bossInstance != null)
+        {
+            Vector3 directionToPlayer = (transform.position - bossInstance.transform.position).normalized;
+            bossInstance.GetComponent<Rigidbody>().AddForce(directionToPlayer * bossSpeed * Time.deltaTime);
+        }
+    }
+
+    private void CheckBossCapture()
+    {
+        if (bossInstance != null)
+        {
+            float distanceToBoss = Vector3.Distance(transform.position, bossInstance.transform.position);
+            if (distanceToBoss < bossCaptureDistance)
+            {
+                FindObjectOfType<GameManager>().EndGame(); // End the game when the boss captures the player
+            }
+        }
+    }
+
+    private void RecoverPlayer()
+    {
+        isRecovering = false;
+        forwardForce /= reducedSpeedMultiplier; // Restore original speed
+
+        // Destroy the boss after recovery
+        if (bossInstance != null)
+        {
+            Destroy(bossInstance);
+        }
+        
+        isBossActive = false;
+    }
 }

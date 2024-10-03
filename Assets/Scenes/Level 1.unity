@@ -973,6 +973,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterPrefabs:
   - {fileID: 6902614622251272776, guid: f41310331554740a7a1eeb421ea53a86, type: 3}
+  - {fileID: 1278312366027936735, guid: c1ca23e71ea13b74cbe45adb00200867, type: 3}
   spawnPoint: {fileID: 1714900583}
   label: {fileID: 56307120}
   tileManager: {fileID: 660359907}
