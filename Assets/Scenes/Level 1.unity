@@ -460,6 +460,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6902614622251272776, guid: f41310331554740a7a1eeb421ea53a86, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 8128712510034470853, guid: f41310331554740a7a1eeb421ea53a86, type: 3}
       propertyPath: m_UseGravity
       value: 1
