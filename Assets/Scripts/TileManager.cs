@@ -12,7 +12,9 @@ public class TileManager : MonoBehaviour
     //public GameObject[] tilesPrefabs;
     public GameObject[] obstacleTiles;
     public GameObject coinTiles;
-    public GameObject roadOject;
+    public GameObject roadObject;
+    public GameObject bridgeObject;
+    public GameObject shortBridgeObject;
     public float zSpawn = 0;
     public float tileLength=26.0f;
     public int numberOfTiles=5;
@@ -24,8 +26,8 @@ public class TileManager : MonoBehaviour
         // coinObject = new Coin(coinTiles);
         for(int i=0;i<numberOfTiles;i++)
         {
-            if (i == 0) GenerateObject(true);
-            else GenerateObject();
+            if (i == 0) GeneratePath(true);
+            else GeneratePath();
         }
     }
 
@@ -34,7 +36,7 @@ public class TileManager : MonoBehaviour
     {
         if(playerTransform.position.z - tileLength>= zSpawn-(numberOfTiles*tileLength))
         {
-            GenerateObject();
+            GeneratePath();
             DeleteTile();
         }
     }
@@ -44,36 +46,52 @@ public class TileManager : MonoBehaviour
         activeTile.RemoveAt(0);
     }
 
-    private void GenerateObject(bool start=false)
+    private void GeneratePath(bool start=false)
     {
-        // bool checkX(Obstacle o)
-        // {
-        //     if (o is TrainX || o is FenceHigh) return true;
-        //     else return false;
-        // }
-        GameObject roadGo = Instantiate(roadOject, transform.forward * zSpawn, Quaternion.identity);
+        int obstacleIndex = Random.Range(0, 2);
+        // obstacleIndex = 2;
+        switch(obstacleIndex) {
+            case 0 : {
+                GenerateRoad();
+                break;
+            }
+            case 1: {
+                GenerateBridge();
+                break;
+            }
+            case 2: {
+                GenerateShortBridge();
+                break;
+            }
+        }
+    }
+
+
+    private void GenerateRoad() {
+        GameObject roadGo = Instantiate(roadObject, transform.forward * zSpawn + new Vector3(2,0,0), Quaternion.identity);
 
         int obstacleIndex = Random.Range(0, obstacleTiles.Length);
-        // obstacleIndex = 3;
-        // if (checkX(obstableObject[obstacleIndex]) && numOfObsPerRow != 1) continue;
-        // Vector3 obsPos = obstableObject[obstacleIndex].Position(lane);
-        // Make the obstacle face in the same direction as the roadGo
-
-        // Instantiate the object and make it face in the direction of the roadGo
         GameObject obsGo = Instantiate(obstacleTiles[obstacleIndex], 
                                 roadGo.transform.position, roadGo.transform.rotation);
-        // Set obsGo as a child of roadGo
         obsGo.transform.SetParent(roadGo.transform);
-
-        // Set the local position relative to roadGo
         obsGo.transform.localPosition = obstacleTiles[obstacleIndex].transform.localPosition;
         obsGo.transform.localRotation = obstacleTiles[obstacleIndex].transform.localRotation;
-            // if (checkX(obstableObject[obstacleIndex])) break;
-        
-        // if(!start) GenerateCoin(roadGo);
         zSpawn += tileLength;
         activeTile.Add(roadGo);
     }
+
+    private void GenerateBridge() {
+        GameObject bridge = Instantiate(bridgeObject, transform.forward * zSpawn, Quaternion.identity);
+        activeTile.Add(bridge);
+        zSpawn += tileLength;
+    }
+
+    private void GenerateShortBridge() {
+        GameObject bridge = Instantiate(shortBridgeObject, transform.forward * zSpawn, Quaternion.identity);
+        activeTile.Add(bridge);
+        zSpawn += tileLength;
+    }
+
     // private void GenerateCoin(GameObject roadObject)
     // {
     //     int choiceBeforeAfter = Random.Range(0, 2);
