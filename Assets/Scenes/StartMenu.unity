@@ -1168,11 +1168,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 827995083}
   m_CullTransparentMesh: 1
---- !u!1 &900504323 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3989839168753385541, guid: f5b96d91b55f6e846a7b26e34f307e28, type: 3}
-  m_PrefabInstance: {fileID: 5046678719656077462}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1088007686
 GameObject:
   m_ObjectHideFlags: 0
@@ -2056,38 +2051,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3478335049762576312, guid: 1ddcd6509665ee54f8a0e8bf4d808a0b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4292873981211280308, guid: 1ddcd6509665ee54f8a0e8bf4d808a0b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 69702261060558580}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ddcd6509665ee54f8a0e8bf4d808a0b, type: 3}
---- !u!1 &69702261060558579 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4292873981211280308, guid: 1ddcd6509665ee54f8a0e8bf4d808a0b, type: 3}
-  m_PrefabInstance: {fileID: 69702261060558578}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &69702261060558580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 69702261060558579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c46a8f98d638d44195ed591c1473e64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterPrefabs:
-  - {fileID: 6902614622251272776, guid: f41310331554740a7a1eeb421ea53a86, type: 3}
-  spawnPoint: {fileID: 0}
-  label: {fileID: 0}
-  tileManager: {fileID: 0}
-  mainCamera: {fileID: 900504323}
-  scoreObject: {fileID: 0}
 --- !u!1001 &5046678719656077462
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2164,7 +2133,8 @@ PrefabInstance:
       propertyPath: m_BackGroundColor.r
       value: 0.7128583
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6357696040451545604, guid: f5b96d91b55f6e846a7b26e34f307e28, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
