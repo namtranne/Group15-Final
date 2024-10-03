@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 100166, guid: a5674d01884853d4e8f2386a171e14d9, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 400166, guid: a5674d01884853d4e8f2386a171e14d9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -134,7 +138,9 @@ MonoBehaviour:
   forwardForce: 2000
   sideForce: 500
   jumpForce: 5
-  isGrounded: 1
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!54 &8128712510034470853
 Rigidbody:
   m_ObjectHideFlags: 0
