@@ -84,14 +84,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void CheckGrounded()
-    {
-        // Raycast down to check for ground
-        float rayDistance = 1.1f; // Adjust based on your player's height
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, rayDistance, groundMask);
-
-        // Debug.Log("Is Grounded: " + isGrounded);
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
