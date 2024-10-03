@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 700f; 
     public bool isGrounded = true; 
 
+    private float accelerationFactor = 0.2f;
+
     
     protected Animator m_Animator;
 
@@ -22,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
         s_Instance = this;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         MoveForward();
 
@@ -31,6 +33,11 @@ public class PlayerMovement : MonoBehaviour
         CheckFallOff();
 
         
+    }
+
+    void FixUpdate()
+    {
+        forwardForce = Time.deltaTime * accelerationFactor;
     }
 
     // Method to add forward force to the player
