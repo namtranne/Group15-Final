@@ -6,8 +6,9 @@ public class PlayerMovement : MonoBehaviour
     public float forwardForce = 2000f;
     public float sideForce = 500f;
     public float jumpForce = 700f;
-    public bool isGrounded = true;
+    private int jumpCount = 0;
     public LayerMask groundMask; // Layer for ground objects
+    private float accelerationFactor = 0.2f;
     
     protected Animator m_Animator;
     protected static PlayerMovement s_Instance;
@@ -44,7 +45,8 @@ public class PlayerMovement : MonoBehaviour
             MoveLeft();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 1)
         {
             Debug.Log("Jump");
             Jump();
@@ -63,9 +65,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        Debug.Log("Jump 2");
         rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
-        isGrounded = false; // Set grounded to false immediately after jumping
+        rb.AddForce(0, 0, 7000 * Time.deltaTime);
+        jumpCount++; // Set grounded to false immediately after jumping
     }
 
     private void CheckFallOff()
@@ -80,7 +82,9 @@ public class PlayerMovement : MonoBehaviour
     {
         // Raycast down to check for ground
         float rayDistance = 1.1f; // Adjust based on your player's height
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, rayDistance, groundMask);
+        if(Physics.Raycast(transform.position, Vector3.down, rayDistance, groundMask)) {
+            jumpCount = 0;
+        }
 
         // Debug.Log("Is Grounded: " + isGrounded);
     }
@@ -90,15 +94,15 @@ public class PlayerMovement : MonoBehaviour
         // If the player collides with something tagged as ground, set isGrounded to true
         if (collision.collider.CompareTag("Ground"))
         {
-            isGrounded = true;
+            jumpCount = 0;
         }
     }
 
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.collider.CompareTag("Ground"))
-        {
-            isGrounded = false;
-        }
-    }
+    // private void OnCollisionExit(Collision collision)
+    // {
+    //     if (collision.collider.CompareTag("Ground"))
+    //     {
+    //         isGrounded = false;
+    //     }
+    // }
 }
