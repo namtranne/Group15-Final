@@ -378,6 +378,11 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 256
+  bossPrefab: {fileID: 5821709083710788975, guid: 1578bd8e4af64784eaa174c1e5a6e82d, type: 3}
+  bossSpawnDistance: 5
+  bossSpeed: 1900
+  isBossActive: 0
+  isRecovering: 0
 --- !u!54 &-4415523905565218729
 Rigidbody:
   m_ObjectHideFlags: 0
