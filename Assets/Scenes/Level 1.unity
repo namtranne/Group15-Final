@@ -353,7 +353,9 @@ MonoBehaviour:
   - {fileID: 8851907237115778829, guid: b376c869721cc4c508f3c5298e2c4c17, type: 3}
   - {fileID: 2373776243133782825, guid: 77ec14e8372d047fe9aa7bf9a435857f, type: 3}
   coinTiles: {fileID: 0}
-  roadOject: {fileID: 7709482668710337618, guid: 072d4a2a6d3594ebf8ac893db62d2be3, type: 3}
+  roadObject: {fileID: 7709482668710337618, guid: 072d4a2a6d3594ebf8ac893db62d2be3, type: 3}
+  bridgeObject: {fileID: 1130966558266950, guid: eb38f993650df74408c22d45f14ae53f, type: 3}
+  shortBridgeObject: {fileID: 5507639436946435537, guid: 05354330295e645aa91e14748173c5f0, type: 3}
   zSpawn: 0
   tileLength: 24
   numberOfTiles: 5
@@ -398,7 +400,7 @@ PrefabInstance:
       objectReference: {fileID: 901111503}
     - target: {fileID: 877381106619751916, guid: f41310331554740a7a1eeb421ea53a86, type: 3}
       propertyPath: jumpForce
-      value: 8
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 877381106619751916, guid: f41310331554740a7a1eeb421ea53a86, type: 3}
       propertyPath: isGrounded
