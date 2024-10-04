@@ -35,7 +35,7 @@ public class TileManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playerTransform.position.z - tileLength>= zSpawn-(numberOfTiles*tileLength))
+        if(playerTransform.position.z - tileLength - 20>= zSpawn-(numberOfTiles*tileLength))
         {
             GeneratePath();
             DeleteTile();
