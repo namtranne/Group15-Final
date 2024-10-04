@@ -14,10 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GamePlay.unity
     guid: f5d47307e037a48609caebc47b116e6e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Level 2.unity
     guid: 7f94fdc8df5c66b4b85a4cf1db634c76
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Level 3.unity
     guid: 1b48075b844cb754484627b4f2853fb1
   - enabled: 0

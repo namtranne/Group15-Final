@@ -104,9 +104,9 @@ GameObject:
   - component: {fileID: 6170114755724501160}
   - component: {fileID: 4708717367078929400}
   - component: {fileID: 4912228808829535620}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FallingRoad 2
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

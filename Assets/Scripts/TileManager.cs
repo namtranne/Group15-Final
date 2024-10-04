@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using TMPro.EditorUtilities;
+// using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -11,6 +11,8 @@ public class TileManager : MonoBehaviour
 {
     //public GameObject[] tilesPrefabs;
     public GameObject[] obstacleTiles;
+    private int totalTiles = 0;
+    public GameObject[] bridgeObstacles;
     public GameObject coinTiles;
     public GameObject roadObject;
     public GameObject[] fallingRoadObjects;
@@ -24,12 +26,21 @@ public class TileManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            playerTransform = playerObject.transform;
+        }
+
+        
         // coinObject = new Coin(coinTiles);
         for(int i=0;i<numberOfTiles;i++)
         {
             if (i == 0) GeneratePath(true);
             else GeneratePath();
         }
+
     }
 
     // Update is called once per frame
@@ -49,15 +60,17 @@ public class TileManager : MonoBehaviour
 
     private void GeneratePath(bool start=false)
     {
-        int obstacleIndex = Random.Range(0, 2);
-        // obstacleIndex = 3;
+        int obstacleIndex = Random.Range(0, 4);
+        if(totalTiles < 3) {
+            obstacleIndex = 0;
+        }
+        totalTiles++;
         switch(obstacleIndex) {
             case 0 : {
                 GenerateRoad();
                 break;
             }
             case 1: {
-                // GenerateShortBridge();
                 GenerateBridge();
                 break;
             }
@@ -75,21 +88,33 @@ public class TileManager : MonoBehaviour
 
     private void GenerateRoad() {
         GameObject roadGo = Instantiate(roadObject, transform.forward * zSpawn + new Vector3(2,0,0), Quaternion.identity);
+        zSpawn += tileLength;
+        activeTile.Add(roadGo);
+
+        if(totalTiles < 3) {
+            return;
+        }
 
         int obstacleIndex = Random.Range(0, obstacleTiles.Length);
+        // obstacleIndex = 14;
         GameObject obsGo = Instantiate(obstacleTiles[obstacleIndex], 
                                 roadGo.transform.position, roadGo.transform.rotation);
         obsGo.transform.SetParent(roadGo.transform);
         obsGo.transform.localPosition = obstacleTiles[obstacleIndex].transform.localPosition;
         obsGo.transform.localRotation = obstacleTiles[obstacleIndex].transform.localRotation;
-        zSpawn += tileLength;
-        activeTile.Add(roadGo);
     }
 
     private void GenerateBridge() {
         GameObject bridge = Instantiate(bridgeObject, transform.forward * zSpawn + new Vector3(0,0,12), Quaternion.identity);
-        activeTile.Add(bridge);
+
+        int obstacleIndex = Random.Range(0, bridgeObstacles.Length);
+        GameObject obsGo = Instantiate(bridgeObstacles[obstacleIndex], 
+                                bridge.transform.position, bridge.transform.rotation);
+        obsGo.transform.SetParent(bridge.transform);
+        obsGo.transform.localPosition = bridgeObstacles[obstacleIndex].transform.localPosition;
+        obsGo.transform.localRotation = bridgeObstacles[obstacleIndex].transform.localRotation;
         zSpawn += tileLength;
+        activeTile.Add(bridge);
     }
 
     private void GenerateShortBridge() {
