@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
@@ -11,13 +12,16 @@ public class PlayerCollision : MonoBehaviour
         {
             movement.enabled = false;
             // collisionSoundEffect.Play();
-
-            if (!PlayerMovement.instance.isBossActive) // Use the class name instead of an instance
-            {
-                PlayerMovement.instance.TriggerBoss(); // Trigger the boss to follow the player
-            }
-
-            movement.enabled = true;
+            EndGame();
         }
+    }
+
+    public void Hit() {
+        movement.enabled = false;
+        Invoke("EndGame", 1);
+    }
+
+    private void EndGame() {
+        FindObjectOfType<GameManager>().EndGame();
     }
 }

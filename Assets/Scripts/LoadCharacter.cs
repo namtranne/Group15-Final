@@ -5,6 +5,7 @@ using TMPro;
 public class LoadCharacter : MonoBehaviour
 {
     public GameObject[] characterPrefabs;
+    public GameObject[] monsterPrefabs;
     public Transform spawnPoint;
     public TMP_Text label;
     public GameObject tileManager; // GameObject that holds TileManager
@@ -16,6 +17,8 @@ public class LoadCharacter : MonoBehaviour
         int selectedCharacter = PlayerPrefs.GetInt("selectedCharacter");
         GameObject prefab = characterPrefabs[selectedCharacter];
         GameObject clone = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
+
+        GameObject monster = Instantiate(monsterPrefabs[0], spawnPoint.position - new Vector3(0,0,30), Quaternion.identity);
 
         // Get the components
         TileManager tileManagerComponent = tileManager.GetComponent<TileManager>();
