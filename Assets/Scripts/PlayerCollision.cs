@@ -8,9 +8,11 @@ public class PlayerCollision : MonoBehaviour
 
     void OnCollisionEnter(Collision colInfo)
     {
-        if (colInfo.collider.tag == "Obstacle")
+        if (colInfo.collider.tag == "Lava")
         {
+            
             movement.enabled = false;
+            movement.Burn();
             // collisionSoundEffect.Play();
             EndGame();
         }

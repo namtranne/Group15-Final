@@ -17,9 +17,11 @@ public class PlayerMovement : MonoBehaviour
     private AudioSource audioSource;
     private AudioSource landingSource;
     private AudioSource jumpingSource;
+    private AudioSource deathSource;
     public AudioClip walkingAudioClip;
     public AudioClip landingAudioClip;
     public AudioClip jumpingAudioClip;
+    public AudioClip deathAudioClip;
 
     private float previousGroundDistance = Mathf.Infinity; // Store the previous distance to the ground
 
@@ -29,12 +31,14 @@ public class PlayerMovement : MonoBehaviour
 
     public void Start()
     {
-        this.audioSource = gameObject.GetComponent<AudioSource>();
-        this.landingSource = gameObject.AddComponent<AudioSource>();
+        audioSource = gameObject.GetComponent<AudioSource>();
+        landingSource = gameObject.AddComponent<AudioSource>();
         jumpingSource = gameObject.AddComponent<AudioSource>();
+        deathSource = gameObject.AddComponent<AudioSource>();
 
         // Corrected assignment
         jumpingSource.clip = jumpingAudioClip;
+        deathSource.clip = deathAudioClip;
         this.landingSource.clip = landingAudioClip;
         originalScale = transform.localScale; // Save the original scale of the player
     }
@@ -157,5 +161,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void PlayLandingClip() {
         this.landingSource.Play();
+    }
+
+    public void Burn() {
+        m_Animator.SetBool("isDeath", true);
+        deathSource.Play();
     }
 }
