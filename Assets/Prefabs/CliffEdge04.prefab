@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activationDistance: 15
+  audioClip: {fileID: 8300000, guid: 4c81ba670506de9428d8e3e87b2bebdc, type: 3}
 --- !u!65 &4113948270505531506
 BoxCollider:
   m_ObjectHideFlags: 0

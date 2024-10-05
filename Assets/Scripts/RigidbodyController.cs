@@ -7,6 +7,8 @@ public class RigidbodyController : MonoBehaviour
 
     private Rigidbody rb;
     private bool isRigidbodyActivated = false;
+    private AudioSource audioSource;
+    public AudioClip audioClip;
 
     void Start()
     {
@@ -15,8 +17,13 @@ public class RigidbodyController : MonoBehaviour
         if (player == null)
         {
             Debug.LogError("No GameObject with tag 'Player' found.");
-            return;
         }
+
+        audioSource = gameObject.GetComponent<AudioSource>();
+        if(audioSource == null) {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        audioSource.clip = audioClip;
 
         rb = GetComponent<Rigidbody>();
 
@@ -33,6 +40,7 @@ public class RigidbodyController : MonoBehaviour
         if (distanceToPlayer <= activationDistance && !isRigidbodyActivated)
         {
             EnableRigidbody();
+            audioSource.Play();
         }
     }
 

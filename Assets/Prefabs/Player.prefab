@@ -143,6 +143,9 @@ MonoBehaviour:
     m_Bits: 256
   rotationSpeed: 1
   forceIncreaseRate: 500
+  walkingAudioClip: {fileID: 8300000, guid: 1ac85a925071d4c7285744f353deb576, type: 3}
+  jumpingAudioClip: {fileID: 8300000, guid: e2f1aadb2804646c8b6e599782d174b2, type: 3}
+  randomSounds: []
 --- !u!54 &8128712510034470853
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -180,7 +183,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 1ac85a925071d4c7285744f353deb576, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

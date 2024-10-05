@@ -1204,6 +1204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activationDistance: 10
+  audioClip: {fileID: 8300000, guid: 4c81ba670506de9428d8e3e87b2bebdc, type: 3}
 --- !u!4 &1927378522164010955 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: bdbe8c7348df9bd42a0e74e5a39b2d34, type: 3}
@@ -1607,6 +1608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activationDistance: 10
+  audioClip: {fileID: 8300000, guid: 4c81ba670506de9428d8e3e87b2bebdc, type: 3}
 --- !u!54 &8811893939960477984
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2011,6 +2013,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activationDistance: 5
+  audioClip: {fileID: 8300000, guid: 4c81ba670506de9428d8e3e87b2bebdc, type: 3}
 --- !u!54 &7727026249129069665
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -65,6 +65,8 @@ public class TileManager : MonoBehaviour
             obstacleIndex = 0;
         }
         totalTiles++;
+
+        obstacleIndex = 0;
         switch(obstacleIndex) {
             case 0 : {
                 GenerateRoad();
@@ -90,13 +92,14 @@ public class TileManager : MonoBehaviour
         GameObject roadGo = Instantiate(roadObject, transform.forward * zSpawn + new Vector3(2,0,0), Quaternion.identity);
         zSpawn += tileLength;
         activeTile.Add(roadGo);
+        // return;
 
         if(totalTiles < 3) {
             return;
         }
 
         int obstacleIndex = Random.Range(0, obstacleTiles.Length);
-        // obstacleIndex = 14;
+        obstacleIndex = 14;
         GameObject obsGo = Instantiate(obstacleTiles[obstacleIndex], 
                                 roadGo.transform.position, roadGo.transform.rotation);
         obsGo.transform.SetParent(roadGo.transform);
