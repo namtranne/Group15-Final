@@ -6,12 +6,6 @@ public class PlayerMovement : MonoBehaviour
     public float forwardForce = 2000f;
     public float sideForce = 500f;
     public float jumpForce = 700f;
-    public float slideForce = 1000f; // Extra forward force when sliding
-    public float slideDuration = 1f; // How long the slide lasts
-    public float slideCooldown = 2f; // Cooldown time between slides
-    public bool isSliding = false; // To track if the player is sliding
-    private float slideTimer = 0f;
-    private float slideCooldownTimer = 0f;
     private Vector3 originalScale;
     private int jumpCount = 0;
     public LayerMask groundMask;
@@ -21,9 +15,13 @@ public class PlayerMovement : MonoBehaviour
 
     // Audio
     private AudioSource audioSource;
+    private AudioSource landingSource;
+    private AudioSource jumpingSource;
     public AudioClip walkingAudioClip;
+    public AudioClip landingAudioClip;
     public AudioClip jumpingAudioClip;
-    public AudioClip slidingAudioClip; // New sound for sliding
+
+    private float previousGroundDistance = Mathf.Infinity; // Store the previous distance to the ground
 
     protected Animator m_Animator;
     protected static PlayerMovement s_Instance;
@@ -32,6 +30,12 @@ public class PlayerMovement : MonoBehaviour
     public void Start()
     {
         this.audioSource = gameObject.GetComponent<AudioSource>();
+        this.landingSource = gameObject.AddComponent<AudioSource>();
+        jumpingSource = gameObject.AddComponent<AudioSource>();
+
+        // Corrected assignment
+        jumpingSource.clip = jumpingAudioClip;
+        this.landingSource.clip = landingAudioClip;
         originalScale = transform.localScale; // Save the original scale of the player
     }
 
@@ -48,7 +52,6 @@ public class PlayerMovement : MonoBehaviour
         CheckFallOff();
         CheckGrounded();
         PlayAudio();
-        HandleSliding(); // Update sliding status
     }
 
     private void MoveForward()
@@ -71,15 +74,9 @@ public class PlayerMovement : MonoBehaviour
             RotatePlayer(Vector3.left);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 1)
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 2)
         {
             Jump();
-        }
-
-        // Trigger slide when pressing Left Shift and not already sliding
-        if ((Input.GetKeyDown(KeyCode.S) || Input.GetKey(KeyCode.DownArrow) ) && !isSliding && slideCooldownTimer <= 0)
-        {
-            StartSlide();
         }
     }
 
@@ -96,9 +93,7 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
-        AudioSource newAudioSource = gameObject.AddComponent<AudioSource>();
-        newAudioSource.clip = jumpingAudioClip;
-        newAudioSource.Play();
+        jumpingSource.Play();
         audioSource.clip = walkingAudioClip;
         jumpCount++;
     }
@@ -119,70 +114,48 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckGrounded()
     {
-        float rayDistance = 0.16f;
-        if (Physics.Raycast(transform.position, Vector3.down, rayDistance, groundMask) && jumpCount != 0)
+        float rayDistance = 1f; // Increase the raycast distance to better detect the ground
+        RaycastHit hit;
+
+        // Perform the raycast to check for ground
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, rayDistance, groundMask))
         {
-            audioSource.clip = walkingAudioClip;
-            audioSource.Play();
-            jumpCount = 0;
+            float currentGroundDistance = hit.distance;
+
+            // Check if the player is falling or landing
+            if (currentGroundDistance < previousGroundDistance && jumpCount != 0) // Player is landing
+            {
+                Debug.Log("Landing");
+                audioSource.clip = walkingAudioClip;
+                audioSource.Play();
+                Invoke("PlayLandingClip", 0.2f);
+                jumpCount = 0;
+            }
+
+            // Update the previous distance for the next frame
+            previousGroundDistance = currentGroundDistance;
+        }
+        else
+        {
+            // No ground detected, reset the previous distance
+            previousGroundDistance = Mathf.Infinity;
         }
     }
 
     private void PlayAudio()
     {
-        if (!audioSource.isPlaying && jumpCount == 0 && !isSliding)
+        if (!audioSource.isPlaying && jumpCount == 0)
         {
             audioSource.clip = walkingAudioClip;
             audioSource.Play();
         }
-        else if (jumpCount != 0 || isSliding)
+        else if (jumpCount != 0)
         {
             audioSource.Stop();
         }
     }
 
-    // Start sliding
-    private void StartSlide()
-    {
-        isSliding = true;
-        slideTimer = slideDuration;
-        slideCooldownTimer = slideCooldown;
-
-        // Lower the player's height (simulate crouching)
-        transform.localScale = new Vector3(originalScale.x, originalScale.y * 0.5f, originalScale.z);
-
-        // Apply a force to slide forward
-        rb.AddForce(0, 0, slideForce, ForceMode.Impulse);
-
-        // Play sliding sound
-        // audioSource.clip = slidingAudioClip;
-        // audioSource.Play();
-    }
-
-    // Handle sliding duration and reset
-    private void HandleSliding()
-    {
-        if (isSliding)
-        {
-            slideTimer -= Time.deltaTime;
-            if (slideTimer <= 0)
-            {
-                EndSlide();
-            }
-        }
-
-        // Handle slide cooldown
-        if (slideCooldownTimer > 0)
-        {
-            slideCooldownTimer -= Time.deltaTime;
-        }
-    }
-
-    // End the slide and reset player scale
-    private void EndSlide()
-    {
-        isSliding = false;
-        transform.localScale = originalScale; // Reset to original height
-        audioSource.Stop();
+    private void PlayLandingClip() {
+        this.landingSource.Play();
     }
 }

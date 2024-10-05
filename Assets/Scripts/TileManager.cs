@@ -99,7 +99,7 @@ public class TileManager : MonoBehaviour
         }
 
         int obstacleIndex = Random.Range(0, obstacleTiles.Length);
-        obstacleIndex = 14;
+        // int obstacleIndex = Random.Range(10, 11);
         GameObject obsGo = Instantiate(obstacleTiles[obstacleIndex], 
                                 roadGo.transform.position, roadGo.transform.rotation);
         obsGo.transform.SetParent(roadGo.transform);

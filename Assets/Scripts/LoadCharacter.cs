@@ -28,7 +28,6 @@ public class LoadCharacter : MonoBehaviour
         // Set the playerTransform and player references
         tileManagerComponent.playerTransform = clone.transform;
         followPlayer.player = clone.transform;
-        followPlayer.playerMovement = clone.GetComponent<PlayerMovement>();
         score.player = clone.transform; // Assign player to Score script
 
         // Set the label text to the character prefab's name

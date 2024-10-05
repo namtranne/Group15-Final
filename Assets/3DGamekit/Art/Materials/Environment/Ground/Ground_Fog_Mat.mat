@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Ground_Fog_Mat
-  m_Shader: {fileID: 4800000, guid: b8edc3f391fb844649a4f86f3ed33bff, type: 3}
+  m_Shader: {fileID: 4800000, guid: 3a8504d81c6f4443ca0629e890b67363, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -91,6 +91,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 0ace4403cc5f9464388568973d82f0d2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ScumTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -129,6 +133,8 @@ Material:
     - _Parallax: 0.02
     - _Power: 2
     - _Scale: 1
+    - _ScumFalloff: 0.5
+    - _ScumNoiseScale: 0.0325
     - _ShoreFade: 0
     - _ShowBuffers: 0
     - _SmoothnessTextureChannel: 1
@@ -145,7 +151,7 @@ Material:
     - _WaveLength: 0
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 0.20064259, g: 1, b: 0, a: 0.15294118}
+    - _Color: {r: 0.20754717, g: 0.7513764, b: 0.8301887, a: 0.15294118}
     - _ColorA: {r: 1, g: 1, b: 1, a: 1}
     - _ColorB: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
