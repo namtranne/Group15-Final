@@ -827,10 +827,9 @@ GameObject:
   - component: {fileID: 732082552}
   - component: {fileID: 732082555}
   - component: {fileID: 732082554}
-  - component: {fileID: 732082553}
   - component: {fileID: 732082556}
   m_Layer: 5
-  m_Name: Score (1)
+  m_Name: Crystal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -855,20 +854,6 @@ RectTransform:
   m_AnchoredPosition: {x: 516.6, y: 169}
   m_SizeDelta: {x: 118.5, y: 59.3}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &732082553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 732082551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3beb7d7c62a840aa976e75711c81aa4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  scoreTxt: {fileID: 732082554}
 --- !u!114 &732082554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1404,6 +1389,50 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &1527458448
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1527458450}
+  - component: {fileID: 1527458449}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1527458449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1527458448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eda3b51c1d9d4a32ae50c72bcf1803f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1527458450
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1527458448}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 479.0269, y: 225.70264, z: 25.493307}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1553317362
 GameObject:
   m_ObjectHideFlags: 0
@@ -1908,6 +1937,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3478335049762576312, guid: 1ddcd6509665ee54f8a0e8bf4d808a0b, type: 3}
+      propertyPath: crystalText
+      value: 
+      objectReference: {fileID: 732082551}
+    - target: {fileID: 3478335049762576312, guid: 1ddcd6509665ee54f8a0e8bf4d808a0b, type: 3}
       propertyPath: completeLevelUI
       value: 
       objectReference: {fileID: 5336364729679442764}
@@ -2392,3 +2425,4 @@ SceneRoots:
   - {fileID: 835470992}
   - {fileID: 406414055}
   - {fileID: 1614418608}
+  - {fileID: 1527458450}

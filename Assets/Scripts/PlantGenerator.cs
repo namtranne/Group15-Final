@@ -50,8 +50,6 @@ public class PlantGenerator : MonoBehaviour
                 Destroy(tree);
             }
         }
-
-        Debug.Log("All generated trees have been destroyed.");
     }
 
     // Update is called once per frame

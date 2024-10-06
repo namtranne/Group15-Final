@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MonsterFollowPlayer : MonoBehaviour
 {
-    public float chaseSpeed = 5f; // Speed at which the monster follows the player
+    public float chaseSpeed = 5f; // Base speed at which the monster follows the player
     public float attackRange = 1.5f; // Distance from which the monster attacks the player
     public float safeDistance = 5f; // Distance the monster tries to keep from the player
     public float attackCooldown = 1f; // Time between attacks
@@ -15,6 +15,7 @@ public class MonsterFollowPlayer : MonoBehaviour
     private AudioSource attackSource;
     public AudioClip attackClip;
     public float attackAudioDelay;
+    public float speedMultiplier = 1.2f; // How much faster the monster becomes relative to the player
 
     private void Start()
     {
@@ -52,6 +53,10 @@ public class MonsterFollowPlayer : MonoBehaviour
         // Check if player is moving fast
         bool isPlayerFast = playerRb.velocity.magnitude > 2f; // Threshold for player speed
 
+        // Adjust monster's speed based on player's current speed
+        float playerSpeed = playerRb.velocity.magnitude;
+        float adjustedChaseSpeed = chaseSpeed + (playerSpeed * speedMultiplier); // Increase monster's speed with the player's
+
         // Monster maintains distance if player is fast and only moves if player slows down
         if (isPlayerFast && distanceToPlayer < safeDistance)
         {
@@ -63,7 +68,7 @@ public class MonsterFollowPlayer : MonoBehaviour
         {
             // Player is slow or far away, chase the player
             isAttacking = false;
-            MoveTowardsPlayer();
+            MoveTowardsPlayer(adjustedChaseSpeed);
         }
         else
         {
@@ -81,11 +86,11 @@ public class MonsterFollowPlayer : MonoBehaviour
         }
     }
 
-    private void MoveTowardsPlayer()
+    private void MoveTowardsPlayer(float adjustedChaseSpeed)
     {
-        // Move towards the player at a constant speed
+        // Move towards the player at an adjusted speed based on player's speed
         Vector3 direction = (player.position - transform.position).normalized;
-        transform.position += direction * chaseSpeed * Time.deltaTime;
+        transform.position += direction * adjustedChaseSpeed * Time.deltaTime;
 
         // Optionally rotate the monster to face the player
         transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));

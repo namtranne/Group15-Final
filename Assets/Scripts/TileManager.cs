@@ -65,6 +65,9 @@ public class TileManager : MonoBehaviour
         if(totalTiles < 3) {
             obstacleIndex = 0;
         }
+        // else {
+        //     obstacleIndex = 0;
+        // }
         totalTiles++;
         switch(obstacleIndex) {
             case 0 : {
@@ -107,7 +110,7 @@ public class TileManager : MonoBehaviour
         obsGo.transform.localRotation = obstacleTiles[obstacleIndex].transform.localRotation;
 
         bool isGeneratingCrystal = Random.Range(0, 2)  == 1;
-        if(!isGeneratingCrystal) return;
+        // if(!isGeneratingCrystal) return;
 
         GameObject crystalPattern = Instantiate(crystalPatterns[obstacleIndex], 
                                 roadGo.transform.position, roadGo.transform.rotation);
