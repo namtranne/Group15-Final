@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private float accelerationFactor = 0.2f;
     public float rotationSpeed = 2f;
     public float forceIncreaseRate = 10f;
+    private bool isDead = false;
 
     // Audio
     private AudioSource audioSource;
@@ -164,6 +165,8 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void Burn() {
+        if(isDead) return;
+        isDead = true;
         m_Animator.SetBool("isDeath", true);
         deathSource.Play();
     }

@@ -11,6 +11,7 @@ public class LoadCharacter : MonoBehaviour
     public GameObject tileManager; // GameObject that holds TileManager
     public GameObject mainCamera;  // GameObject that holds FollowPlayer
     public GameObject scoreObject; // GameObject that holds the Score script
+    public GameObject waterLayer;
 
     void Start()
     {
@@ -24,11 +25,13 @@ public class LoadCharacter : MonoBehaviour
         TileManager tileManagerComponent = tileManager.GetComponent<TileManager>();
         FollowPlayer followPlayer = mainCamera.GetComponent<FollowPlayer>();
         Score score = scoreObject.GetComponent<Score>();
+        WaterFollow waterFollow = waterLayer.GetComponent<WaterFollow>();
 
         // Set the playerTransform and player references
         tileManagerComponent.playerTransform = clone.transform;
         followPlayer.player = clone.transform;
         score.player = clone.transform; // Assign player to Score script
+        waterFollow.player = clone.transform;
 
         // Set the label text to the character prefab's name
         label.text = prefab.name;

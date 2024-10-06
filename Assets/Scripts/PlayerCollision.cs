@@ -10,20 +10,15 @@ public class PlayerCollision : MonoBehaviour
     {
         if (colInfo.collider.tag == "Lava")
         {
-            
-            movement.enabled = false;
-            movement.Burn();
-            // collisionSoundEffect.Play();
             EndGame();
         }
     }
 
-    public void Hit() {
+    public void EndGame() {
         movement.enabled = false;
+        movement.Burn();
         Invoke("EndGame", 1);
-    }
-
-    private void EndGame() {
         FindObjectOfType<GameManager>().EndGame();
     }
+
 }

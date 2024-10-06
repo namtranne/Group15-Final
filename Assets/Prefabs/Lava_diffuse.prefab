@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 902723395773275071}
   m_Layer: 8
   m_Name: Lava_diffuse
-  m_TagString: Obstacle
+  m_TagString: Lava
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 8125314246638638048}
   m_Layer: 8
   m_Name: Lava_diffuse
-  m_TagString: Obstacle
+  m_TagString: Lava
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

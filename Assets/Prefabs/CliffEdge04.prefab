@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5077799462734304304}
   - component: {fileID: 3356788496472590557}
   - component: {fileID: 4113948270505531506}
-  m_Layer: 16
+  m_Layer: 8
   m_Name: CliffEdge04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activationDistance: 15
-  audioClip: {fileID: 8300000, guid: 4c81ba670506de9428d8e3e87b2bebdc, type: 3}
+  audioClip: {fileID: 8300000, guid: 2b47f7fd2cc0242c3b74c25be5832250, type: 3}
+  delayTime: 0.6
 --- !u!65 &4113948270505531506
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -161,7 +162,7 @@ GameObject:
   - component: {fileID: 6793218997787427231}
   - component: {fileID: 6786634000827064915}
   - component: {fileID: 6775051867783649099}
-  m_Layer: 16
+  m_Layer: 8
   m_Name: CliffEdge04_LOD01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,7 +245,7 @@ GameObject:
   - component: {fileID: 6793613901672792283}
   - component: {fileID: 6783311869108909959}
   - component: {fileID: 6774214833248606853}
-  m_Layer: 16
+  m_Layer: 8
   m_Name: CliffEdge04_LOD02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -327,7 +328,7 @@ GameObject:
   - component: {fileID: 6793670469876011021}
   - component: {fileID: 6782849698549405069}
   - component: {fileID: 6774233373750460195}
-  m_Layer: 16
+  m_Layer: 8
   m_Name: CliffEdge04_LOD00
   m_TagString: Untagged
   m_Icon: {fileID: 0}

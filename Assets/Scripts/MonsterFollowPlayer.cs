@@ -12,6 +12,9 @@ public class MonsterFollowPlayer : MonoBehaviour
     private Rigidbody playerRb; // Player's Rigidbody to monitor their velocity
     private bool isAttacking = false; // Tracks if the monster is in attacking mode
     private Animator m_Animator; // Monster's animator for attack animations
+    private AudioSource attackSource;
+    public AudioClip attackClip;
+    public float attackAudioDelay;
 
     private void Start()
     {
@@ -25,6 +28,8 @@ public class MonsterFollowPlayer : MonoBehaviour
 
         // Initialize the animator
         m_Animator = GetComponent<Animator>();
+        this.attackSource = gameObject.AddComponent<AudioSource>();
+        attackSource.clip = attackClip;
     }
 
     private void Update()
@@ -91,7 +96,9 @@ public class MonsterFollowPlayer : MonoBehaviour
         if (!isAttacking && Time.time - lastAttackTime > attackCooldown)
         {
             isAttacking = true;
-            playerObject.GetComponent<PlayerCollision>().Hit();
+            playerObject.GetComponent<PlayerCollision>().EndGame();
+            PlayAudioDelay();
+            
             lastAttackTime = Time.time;
 
             // Trigger attack animation
@@ -116,5 +123,14 @@ public class MonsterFollowPlayer : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, safeDistance);
+    }
+
+    void PlayAudioDelay() {
+        Invoke("PlayAudio", attackAudioDelay);
+    }
+
+
+    void PlayAudio() {
+        attackSource.Play();
     }
 }

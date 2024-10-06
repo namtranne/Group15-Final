@@ -13,6 +13,7 @@ public class TileManager : MonoBehaviour
     public GameObject[] obstacleTiles;
     private int totalTiles = 0;
     public GameObject[] bridgeObstacles;
+    public GameObject[] crystalPatterns;
     public GameObject coinTiles;
     public GameObject roadObject;
     public GameObject[] fallingRoadObjects;
@@ -65,8 +66,6 @@ public class TileManager : MonoBehaviour
             obstacleIndex = 0;
         }
         totalTiles++;
-
-        obstacleIndex = 0;
         switch(obstacleIndex) {
             case 0 : {
                 GenerateRoad();
@@ -98,13 +97,23 @@ public class TileManager : MonoBehaviour
             return;
         }
 
-        // int obstacleIndex = Random.Range(0, obstacleTiles.Length);
-        int obstacleIndex = Random.Range(10, 11);
+        int obstacleIndex = Random.Range(0, obstacleTiles.Length);
+        // int obstacleIndex = Random.Range(10, 11);
+        // obstacleIndex = 8;
         GameObject obsGo = Instantiate(obstacleTiles[obstacleIndex], 
                                 roadGo.transform.position, roadGo.transform.rotation);
         obsGo.transform.SetParent(roadGo.transform);
         obsGo.transform.localPosition = obstacleTiles[obstacleIndex].transform.localPosition;
         obsGo.transform.localRotation = obstacleTiles[obstacleIndex].transform.localRotation;
+
+        bool isGeneratingCrystal = Random.Range(0, 2)  == 1;
+        if(!isGeneratingCrystal) return;
+
+        GameObject crystalPattern = Instantiate(crystalPatterns[obstacleIndex], 
+                                roadGo.transform.position, roadGo.transform.rotation);
+        crystalPattern.transform.SetParent(roadGo.transform);
+        crystalPattern.transform.localPosition = crystalPatterns[obstacleIndex].transform.localPosition;
+        crystalPattern.transform.localRotation = crystalPatterns[obstacleIndex].transform.localRotation;
     }
 
     private void GenerateBridge() {

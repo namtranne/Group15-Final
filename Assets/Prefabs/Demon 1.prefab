@@ -135,6 +135,8 @@ MonoBehaviour:
   attackRange: 1.5
   safeDistance: 5
   attackCooldown: 1
+  attackClip: {fileID: 8300000, guid: c9d76300b19d1504cbddfcff002bbcb6, type: 3}
+  attackAudioDelay: 0.3
 --- !u!82 &-6388148741591502765
 AudioSource:
   m_ObjectHideFlags: 0

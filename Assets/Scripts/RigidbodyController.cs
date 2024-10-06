@@ -10,6 +10,8 @@ public class RigidbodyController : MonoBehaviour
     private AudioSource audioSource;
     public AudioClip audioClip;
 
+    public float delayTime = 0f;
+
     void Start()
     {
         player = GameObject.FindWithTag("Player");
@@ -40,7 +42,7 @@ public class RigidbodyController : MonoBehaviour
         if (distanceToPlayer <= activationDistance && !isRigidbodyActivated)
         {
             EnableRigidbody();
-            audioSource.Play();
+            PlayAudioWithDelay();
         }
     }
 
@@ -62,4 +64,13 @@ public class RigidbodyController : MonoBehaviour
             isRigidbodyActivated = true;  // Prevent multiple activations
         }
     }
+
+    void PlayAudioWithDelay() {
+        Invoke("PlayAudio", delayTime);
+    }
+
+    void PlayAudio() {
+        audioSource.Play();
+    }
+
 }
