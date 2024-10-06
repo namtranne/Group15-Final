@@ -1,6 +1,7 @@
 using System.IO;
 using UnityEngine;
 using TMPro;
+using System; 
 
 public class LoadCurrentAmount : MonoBehaviour
 {
@@ -11,7 +12,6 @@ public class LoadCurrentAmount : MonoBehaviour
     {
         filePath = Application.dataPath + "/current-amount.txt";
         LoadText();
-        Debug.Log("filePath: " + filePath);
     }
 
     public void SaveText(string content)
@@ -29,7 +29,30 @@ public class LoadCurrentAmount : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("File not found: " + filePath);
+            File.WriteAllText(filePath, "0");
+            string content = File.ReadAllText(filePath);
+            textDisplay.text = "Current amount: " + content + "$";
         }
+    }
+
+
+    public int ModifyAmount(int amount) {
+        if (File.Exists(filePath) == false ) {
+            File.WriteAllText(filePath, "0");
+        }
+        
+        string content = File.ReadAllText(filePath);
+        int currentAmount =  Int32.Parse(content);
+        if(currentAmount < 0) currentAmount = 0;
+        currentAmount = currentAmount + amount;
+        SaveText(currentAmount.ToString());
+        return currentAmount;
+    }
+
+    public int LoadAmount() {
+        if (File.Exists(filePath) == false ) {
+            File.WriteAllText(filePath, "0");
+        }
+        return 0;
     }
 }
