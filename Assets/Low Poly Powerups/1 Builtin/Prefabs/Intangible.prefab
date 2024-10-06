@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 7475340530523324510}
   - component: {fileID: 7475340530523324511}
   m_Layer: 0
-  m_Name: Damage
-  m_TagString: Untagged
+  m_Name: Intangible
+  m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,8 +137,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7475340531379887567}
   m_Layer: 0
-  m_Name: Damage
-  m_TagString: Untagged
+  m_Name: Intangible
+  m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -5,6 +5,7 @@ public class PlayerCollision : MonoBehaviour
 {
     public PlayerMovement movement;
     public AudioSource collisionSoundEffect;
+    public AudioClip powerUpSound;
 
     void OnCollisionEnter(Collision colInfo)
     {
@@ -12,9 +13,19 @@ public class PlayerCollision : MonoBehaviour
         {
             EndGame();
         }
+        else if(colInfo.collider.tag == "PowerUp") 
+        {
+            Debug.Log("Collided with PowerUp: " + colInfo.collider.name);     
+            PowerUpManager.instance.CollectPowerUp(colInfo.collider.name);
+            AudioManager.instance.PlayAudio(powerUpSound);
+            Destroy(colInfo.collider.gameObject);
+        }
     }
 
     public void EndGame() {
+        if(PowerUpManager.instance.IsPowerUpActive("Shield")) {
+            return;
+        }
         movement.enabled = false;
         movement.Burn();
         Invoke("EndGame", 1);

@@ -359,6 +359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement: {fileID: 9004786299895023346}
   collisionSoundEffect: {fileID: 0}
+  powerUpSound: {fileID: 8300000, guid: a954f34c9cc9848ae957e7c7a312a400, type: 3}
 --- !u!114 &9004786299895023346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,11 +379,12 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 256
-  bossPrefab: {fileID: 5821709083710788975, guid: 1578bd8e4af64784eaa174c1e5a6e82d, type: 3}
-  bossSpawnDistance: 5
-  bossSpeed: 1900
-  isBossActive: 0
-  isRecovering: 0
+  rotationSpeed: 2
+  forceIncreaseRate: 10
+  walkingAudioClip: {fileID: 0}
+  landingAudioClip: {fileID: 0}
+  jumpingAudioClip: {fileID: 0}
+  deathAudioClip: {fileID: 0}
 --- !u!54 &-4415523905565218729
 Rigidbody:
   m_ObjectHideFlags: 0
