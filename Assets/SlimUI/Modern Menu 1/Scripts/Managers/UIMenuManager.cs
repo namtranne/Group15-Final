@@ -85,6 +85,7 @@ namespace SlimUI.ModernMenu
 		public AudioSource swooshSound;
 
 		public GameObject dropShip;
+		public GameObject title;
 
 		void Start()
 		{
@@ -172,11 +173,13 @@ namespace SlimUI.ModernMenu
 		{
 			DisablePlayCampaign();
 			CameraObject.SetFloat("Animate", 1);
+			title.SetActive(false);
 		}
 
 		public void Position1()
 		{
 			CameraObject.SetFloat("Animate", 0);
+			title.SetActive(true);
 		}
 
 		void DisablePanels()
