@@ -14,6 +14,8 @@ public class TileManager : MonoBehaviour
     private int totalTiles = 0;
     public GameObject[] bridgeObstacles;
     public GameObject[] crystalPatterns;
+    public Transform[] powerUpPositions;
+    public GameObject[] powerUps;
     public GameObject coinTiles;
     public GameObject roadObject;
     public GameObject[] fallingRoadObjects;
@@ -24,6 +26,8 @@ public class TileManager : MonoBehaviour
     public int numberOfTiles=5;
     public Transform playerTransform;
     private List<GameObject> activeTile = new List<GameObject>();
+    private bool isGeneratingPowerUp = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,9 +69,14 @@ public class TileManager : MonoBehaviour
         if(totalTiles < 3) {
             obstacleIndex = 0;
         }
-        // else {
-        //     obstacleIndex = 0;
-        // }
+        else {
+            obstacleIndex = 0;
+        }
+
+        if(totalTiles > 10 && totalTiles % 10 == 0) {
+            isGeneratingPowerUp = true;
+        }
+
         totalTiles++;
         switch(obstacleIndex) {
             case 0 : {
@@ -109,14 +118,26 @@ public class TileManager : MonoBehaviour
         obsGo.transform.localPosition = obstacleTiles[obstacleIndex].transform.localPosition;
         obsGo.transform.localRotation = obstacleTiles[obstacleIndex].transform.localRotation;
 
-        bool isGeneratingCrystal = Random.Range(0, 2)  == 1;
+        bool isGeneratingCrystal = Random.Range(0, 2)  == 1 && !isGeneratingPowerUp;
         // if(!isGeneratingCrystal) return;
 
-        GameObject crystalPattern = Instantiate(crystalPatterns[obstacleIndex], 
+        if(isGeneratingCrystal) {
+            GameObject crystalPattern = Instantiate(crystalPatterns[obstacleIndex], 
                                 roadGo.transform.position, roadGo.transform.rotation);
-        crystalPattern.transform.SetParent(roadGo.transform);
-        crystalPattern.transform.localPosition = crystalPatterns[obstacleIndex].transform.localPosition;
-        crystalPattern.transform.localRotation = crystalPatterns[obstacleIndex].transform.localRotation;
+            crystalPattern.transform.SetParent(roadGo.transform);
+            crystalPattern.transform.localPosition = crystalPatterns[obstacleIndex].transform.localPosition;
+            crystalPattern.transform.localRotation = crystalPatterns[obstacleIndex].transform.localRotation;
+        }
+        
+        if(!isGeneratingPowerUp) return;
+        isGeneratingPowerUp = false;
+
+        int powerUpIndex = Random.Range(0, powerUps.Length);
+        GameObject powerUpItem = Instantiate(powerUps[powerUpIndex], 
+                                roadGo.transform.position, powerUps[powerUpIndex].transform.localRotation);
+
+        powerUpItem.transform.SetParent(roadGo.transform);
+        powerUpItem.transform.localPosition = powerUpPositions[obstacleIndex].transform.localPosition;
     }
 
     private void GenerateBridge() {
