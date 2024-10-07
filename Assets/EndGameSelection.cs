@@ -1,73 +1,64 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;  // Make sure you are using this for UI elements like Text
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using TMPro;  // Import for TextMeshPro
-using System.Collections.Generic;  // Import for List<>
+using TMPro;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System; // Added to import the System namespace
 
 public class EndGameSelection : MonoBehaviour
 {
+    public GameObject crystalText;
+    public GameObject scoreText;
 
-	public GameObject crystalText;
-	public GameObject scoreText;
+    private string scorefilePath;
+    private string gemfilePath;
 
-	public TextMeshPro ScoretextDisplay;
-	public TextMeshPro textDisplay;
-
-	private string scorefilePath;
-	private string gemfilePath;
-
-	public static EndGameSelection instance;
+    public static EndGameSelection instance;
 
     private void Awake()
     {
         instance = this;
     }
 
-	public void Start()
-	{
-		int currentCrystal = PlayerPrefs.GetInt("crystalTextComponent");
-		int currentScore = PlayerPrefs.GetInt("scoreTextComponent");
+    public void Start()
+    {
+        int currentCrystal = PlayerPrefs.GetInt("crystalTextComponent");
+        int currentScore = PlayerPrefs.GetInt("scoreTextComponent");
 
-		Text crystalTextComponent = crystalText.GetComponent<Text>();
+        Text crystalTextComponent = crystalText.GetComponent<Text>();
         crystalTextComponent.text = currentCrystal.ToString();
 
-		Text scoreTextComponent = scoreText.GetComponent<Text>();
+        Text scoreTextComponent = scoreText.GetComponent<Text>();
         scoreTextComponent.text = currentScore.ToString();
 
-		scorefilePath = Application.dataPath + "/top-runners.txt";
-		gemfilePath = Application.dataPath + "/current_amount.txt";
+        scorefilePath = Application.dataPath + "/top-runners.txt";
+        gemfilePath = Application.dataPath + "/current_amount.txt";
 
-		ScoreLoadText();
-		LoadText();
+        // ScoreLoadText();
+        // LoadText();
+    }
 
-	}
+    public void QuitButton()
+    {
+        int currentCrystal = PlayerPrefs.GetInt("crystalTextComponent");
+        int currentScore = PlayerPrefs.GetInt("scoreTextComponent");
+        ModifyAmount(currentCrystal);
+        ScoreAddRunner("Player", currentScore);
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
+    }
 
-	public void QuitButton()
-	{
-		int currentCrystal = PlayerPrefs.GetInt("crystalTextComponent");
-		int currentScore = PlayerPrefs.GetInt("scoreTextComponent");
-		ModifyAmount(currentCrystal);
-		ScoreAddRunner("Player", currentScore);
-		SceneManager.LoadScene(0, LoadSceneMode.Single);
-	}
+    public void StartGame()
+    {
+        int currentCrystal = PlayerPrefs.GetInt("crystalTextComponent");
+        int currentScore = PlayerPrefs.GetInt("scoreTextComponent");
+        ModifyAmount(currentCrystal);
+        ScoreAddRunner("Player", currentScore);
+        SceneManager.LoadScene(1, LoadSceneMode.Single);
+    }
 
-	public void StartGame()
-	{
-		int currentCrystal = PlayerPrefs.GetInt("crystalTextComponent");
-		int currentScore = PlayerPrefs.GetInt("scoreTextComponent");
-		ModifyAmount(currentCrystal);
-		ScoreAddRunner("Player", currentScore);
-		SceneManager.LoadScene(1, LoadSceneMode.Single);
-		
-	}
-
-
-	public void ScoreAddRunner(string name, int score)
+    public void ScoreAddRunner(string name, int score)
     {
         List<(string name, int score)> runners = ScoreLoadRunnersFromFile();
 
@@ -115,7 +106,8 @@ public class EndGameSelection : MonoBehaviour
 
         File.WriteAllLines(scorefilePath, lines);
 
-        ScoretextDisplay.text = string.Join("\n", lines);
+        Text scoreTextComponent = scoreText.GetComponent<Text>();
+        // scoreTextComponent.text = string.Join("\n", lines);
         Debug.Log("Top runners saved.");
     }
 
@@ -124,7 +116,8 @@ public class EndGameSelection : MonoBehaviour
         if (File.Exists(scorefilePath))
         {
             string content = File.ReadAllText(scorefilePath);
-            ScoretextDisplay.text = content;
+            Text scoreTextComponent = scoreText.GetComponent<Text>();
+            scoreTextComponent.text = content;
         }
         else
         {
@@ -132,8 +125,7 @@ public class EndGameSelection : MonoBehaviour
         }
     }
 
-
-	public void SaveText(string content)
+    public void SaveText(string content)
     {
         File.WriteAllText(gemfilePath, content);
         Debug.Log("Text saved to " + gemfilePath);
@@ -144,32 +136,37 @@ public class EndGameSelection : MonoBehaviour
         if (File.Exists(gemfilePath))
         {
             string content = File.ReadAllText(gemfilePath);
-            textDisplay.text = "Current amount: " + content + "$";
+            Text crystalTextComponent = crystalText.GetComponent<Text>();
+            crystalTextComponent.text = content;
         }
         else
         {
             File.WriteAllText(gemfilePath, "0");
             string content = File.ReadAllText(gemfilePath);
-            textDisplay.text = "Current amount: " + content + "$";
+            Text crystalTextComponent = crystalText.GetComponent<Text>();
+            crystalTextComponent.text = content;
         }
     }
 
-
-    public int ModifyAmount(int amount) {
-        if (File.Exists(gemfilePath) == false ) {
+    public int ModifyAmount(int amount)
+    {
+        if (File.Exists(gemfilePath) == false)
+        {
             File.WriteAllText(gemfilePath, "0");
         }
         
         string content = File.ReadAllText(gemfilePath);
-        int currentAmount =  Int32.Parse(content);
-        if(currentAmount < 0) currentAmount = 0;
+        int currentAmount = int.Parse(content);
+        if (currentAmount < 0) currentAmount = 0;
         currentAmount = currentAmount + amount;
         SaveText(currentAmount.ToString());
         return currentAmount;
     }
 
-    public int LoadAmount() {
-        if (File.Exists(gemfilePath) == false ) {
+    public int LoadAmount()
+    {
+        if (File.Exists(gemfilePath) == false)
+        {
             File.WriteAllText(gemfilePath, "0");
         }
         return 0;
