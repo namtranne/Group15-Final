@@ -79,15 +79,6 @@ public class PlayerMovement : MonoBehaviour
             DeactivateIntangibleEffect();
         }
 
-        if (PowerUpManager.instance.IsPowerUpActive("Shield"))
-        {
-            ActivateIntangibleEffect();
-        }
-        else if (isIntangible)
-        {
-            DeactivateIntangibleEffect();
-        }
-
         // Check if the Jump Skill is active
         if (PowerUpManager.instance.IsPowerUpActive("Jump"))
         {
@@ -171,7 +162,6 @@ public class PlayerMovement : MonoBehaviour
             // Check if the player is falling or landing
             if (currentGroundDistance < previousGroundDistance && jumpCount != 0) // Player is landing
             {
-                Debug.Log("Landing");
                 audioSource.clip = walkingAudioClip;
                 audioSource.Play();
                 Invoke("PlayLandingClip", 0.2f);
@@ -217,7 +207,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!jumpSkillActive)
         {
-            Debug.Log("Jump Skill Activated: Boosting jump height.");
             jumpForce = boostedJumpForce; // Set to the boosted jump force
             jumpSkillActive = true;       // Track that the jump skill is active
         }
@@ -226,7 +215,6 @@ public class PlayerMovement : MonoBehaviour
     // Method to deactivate the Jump Skill
     private void DeactivateJumpSkill()
     {
-        Debug.Log("Jump Skill Deactivated: Reverting jump height.");
         jumpForce = normalJumpForce; // Revert to the normal jump force
         jumpSkillActive = false;     // Track that the jump skill is no longer active
     }
@@ -262,8 +250,7 @@ public class PlayerMovement : MonoBehaviour
     // Method to deactivate Intangible power-up effect
     private void DeactivateIntangibleEffect()
     {
-        Debug.Log("Intangible Power-Up Expired: Reverting speed and layer.");
-        forwardForce = normalForwardForce * 10; // Revert to normal speed
+        forwardForce = normalForwardForce; // Revert to normal speed
         gameObject.layer = normalLayer;         // Revert to the original layer
         isIntangible = false;                   // Track that the player is no longer intangible
     }
