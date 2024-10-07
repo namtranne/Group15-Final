@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7475340530523324510}
   - component: {fileID: 7475340530523324511}
   m_Layer: 0
-  m_Name: Intangible
+  m_Name: Jump
   m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

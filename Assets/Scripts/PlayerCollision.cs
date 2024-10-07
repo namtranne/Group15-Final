@@ -14,8 +14,7 @@ public class PlayerCollision : MonoBehaviour
             EndGame();
         }
         else if(colInfo.collider.tag == "PowerUp") 
-        {
-            Debug.Log("Collided with PowerUp: " + colInfo.collider.name);     
+        {    
             PowerUpManager.instance.CollectPowerUp(colInfo.collider.name);
             AudioManager.instance.PlayAudio(powerUpSound);
             Destroy(colInfo.collider.gameObject);

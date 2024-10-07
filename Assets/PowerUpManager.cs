@@ -126,4 +126,12 @@ public class PowerUpManager : MonoBehaviour
     {
         return powerUps.ContainsKey(powerUpName) && powerUps[powerUpName] > 0;
     }
+
+    public float GetPowerUpTime(string powerUpName) {
+        if(powerUps.ContainsKey(powerUpName) ) {
+            if(powerUps[powerUpName] >0) return powerUps[powerUpName];
+            return 0;
+        }
+        return 0;
+    }
 }
