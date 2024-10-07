@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI; // Make sure to include this for UI components
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PercentageTextUpdater : MonoBehaviour
 {
@@ -33,6 +34,6 @@ public class PercentageTextUpdater : MonoBehaviour
 
         // Ensure it ends exactly at 100%
         percentageText.text = "100%";
-        
+        SceneManager.LoadScene(2, LoadSceneMode.Single);
     }
 }

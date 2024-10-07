@@ -55,7 +55,7 @@ public class EndGameSelection : MonoBehaviour
         int currentScore = PlayerPrefs.GetInt("scoreTextComponent");
         ModifyAmount(currentCrystal);
         ScoreAddRunner("Player", currentScore);
-        SceneManager.LoadScene(1, LoadSceneMode.Single);
+        SceneManager.LoadScene(2, LoadSceneMode.Single);
     }
 
     public void ScoreAddRunner(string name, int score)

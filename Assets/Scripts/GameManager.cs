@@ -45,9 +45,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("scoreTextComponent", score_text);
 
        
-        SceneManager.LoadScene(2);
-
-        
+        SceneManager.LoadScene(3, LoadSceneMode.Single);
     }
 
     // Method to add crystals and update UI
