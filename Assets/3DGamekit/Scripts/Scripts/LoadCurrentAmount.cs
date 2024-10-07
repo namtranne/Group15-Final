@@ -9,9 +9,9 @@ public class LoadCurrentAmount : MonoBehaviour
 
     void Start()
     {
-        filePath = Application.dataPath + "/current-amount.txt";
-        LoadText();
-        Debug.Log("filePath: " + filePath);
+        // filePath = Application.dataPath + "/current-amount.txt";
+        // LoadText();
+        // Debug.Log("filePath: " + filePath);
     }
 
     public void SaveText(string content)
