@@ -73,7 +73,7 @@ public class TileManager : MonoBehaviour
             obstacleIndex = 0;
         }
 
-        if(totalTiles > 10 && totalTiles % 10 == 0) {
+        if(totalTiles > 0 && totalTiles % 1 == 0) {
             isGeneratingPowerUp = true;
         }
 

@@ -122,6 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement: {fileID: 877381106619751916}
   collisionSoundEffect: {fileID: 0}
+  powerUpSound: {fileID: 8300000, guid: a954f34c9cc9848ae957e7c7a312a400, type: 3}
 --- !u!114 &877381106619751916
 MonoBehaviour:
   m_ObjectHideFlags: 0

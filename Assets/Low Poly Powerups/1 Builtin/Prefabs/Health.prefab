@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5672416591742434649}
   m_Layer: 0
   m_Name: Health
-  m_TagString: Untagged
+  m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 5672416593029594366}
   m_Layer: 0
   m_Name: Health
-  m_TagString: Untagged
+  m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
