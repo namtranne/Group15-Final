@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3548868053556891551}
   - component: {fileID: 7093830685447170223}
   - component: {fileID: -4547447768389048311}
+  - component: {fileID: 8270206185024669416}
   m_Layer: 0
   m_Name: Fire
   m_TagString: Lava
@@ -49,7 +50,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -153,6 +154,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8270206185024669416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7501043229438639628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 173c480badc474c19bdb67c3c0ebfd4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &205775547666138070
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -215,7 +215,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -272,7 +272,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1942,7 +1942,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -2589,6 +2589,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activationDistance: 20
   audioClip: {fileID: 8300000, guid: 65dbdeafb27814d9e97ae2510fe72ac2, type: 3}
+  delayTime: 0
 --- !u!82 &3110526535506978219
 AudioSource:
   m_ObjectHideFlags: 0

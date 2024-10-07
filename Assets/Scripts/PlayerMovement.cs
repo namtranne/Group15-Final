@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -5,7 +7,8 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody rb;
     public float forwardForce = 2000f;
     public float sideForce = 500f;
-    public float jumpForce = 700f;
+    public float jumpForce = 700f;           // Normal jump force
+    public float boostedJumpForce = 1200f;   // Increased jump force for the jump skill
     private Vector3 originalScale;
     private int jumpCount = 0;
     public LayerMask groundMask;
@@ -30,6 +33,12 @@ public class PlayerMovement : MonoBehaviour
     protected static PlayerMovement s_Instance;
     public static PlayerMovement instance { get { return s_Instance; } }
 
+    private bool isIntangible = false; // Track whether the player is currently intangible
+    private float normalForwardForce;  // Store the normal forward force value
+    private int normalLayer;           // Store the original layer of the player
+    private bool jumpSkillActive = false; // Track whether the jump skill is active
+    private float normalJumpForce;      // Store the original jump force
+
     public void Start()
     {
         audioSource = gameObject.GetComponent<AudioSource>();
@@ -37,11 +46,13 @@ public class PlayerMovement : MonoBehaviour
         jumpingSource = gameObject.AddComponent<AudioSource>();
         deathSource = gameObject.AddComponent<AudioSource>();
 
-        // Corrected assignment
         jumpingSource.clip = jumpingAudioClip;
         deathSource.clip = deathAudioClip;
         this.landingSource.clip = landingAudioClip;
         originalScale = transform.localScale; // Save the original scale of the player
+        normalForwardForce = forwardForce;    // Save the normal forward force
+        normalJumpForce = jumpForce;          // Save the normal jump force
+        normalLayer = gameObject.layer;       // Save the original layer
     }
 
     private void Awake()
@@ -57,11 +68,41 @@ public class PlayerMovement : MonoBehaviour
         CheckFallOff();
         CheckGrounded();
         PlayAudio();
+
+        // Check if the Intangible power-up is active
+        if (PowerUpManager.instance.IsPowerUpActive("Intangible"))
+        {
+            ActivateIntangibleEffect();
+        }
+        else if (isIntangible)
+        {
+            DeactivateIntangibleEffect();
+        }
+
+        if (PowerUpManager.instance.IsPowerUpActive("Shield"))
+        {
+            ActivateIntangibleEffect();
+        }
+        else if (isIntangible)
+        {
+            DeactivateIntangibleEffect();
+        }
+
+        // Check if the Jump Skill is active
+        if (PowerUpManager.instance.IsPowerUpActive("Jump"))
+        {
+            ActivateJumpSkill();
+        }
+        else if (jumpSkillActive)
+        {
+            DeactivateJumpSkill();
+        }
     }
 
     private void MoveForward()
     {
         forwardForce += forceIncreaseRate * Time.deltaTime;
+        normalForwardForce += forceIncreaseRate * Time.deltaTime;
         rb.AddForce(0, 0, forwardForce * Time.deltaTime);
     }
 
@@ -137,12 +178,10 @@ public class PlayerMovement : MonoBehaviour
                 jumpCount = 0;
             }
 
-            // Update the previous distance for the next frame
             previousGroundDistance = currentGroundDistance;
         }
         else
         {
-            // No ground detected, reset the previous distance
             previousGroundDistance = Mathf.Infinity;
         }
     }
@@ -160,14 +199,72 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void PlayLandingClip() {
+    private void PlayLandingClip()
+    {
         this.landingSource.Play();
     }
 
-    public void Burn() {
-        if(isDead) return;
+    public void Burn()
+    {
+        if (isDead) return;
         isDead = true;
         m_Animator.SetBool("isDeath", true);
         deathSource.Play();
+    }
+
+    // Method to activate the Jump Skill
+    private void ActivateJumpSkill()
+    {
+        if (!jumpSkillActive)
+        {
+            Debug.Log("Jump Skill Activated: Boosting jump height.");
+            jumpForce = boostedJumpForce; // Set to the boosted jump force
+            jumpSkillActive = true;       // Track that the jump skill is active
+        }
+    }
+
+    // Method to deactivate the Jump Skill
+    private void DeactivateJumpSkill()
+    {
+        Debug.Log("Jump Skill Deactivated: Reverting jump height.");
+        jumpForce = normalJumpForce; // Revert to the normal jump force
+        jumpSkillActive = false;     // Track that the jump skill is no longer active
+    }
+
+    // Method to activate Intangible power-up effect
+    private void ActivateIntangibleEffect()
+    {
+        if (!isIntangible)
+        {
+            Debug.Log("Intangible Power-Up Activated: Boosting speed and changing layer.");
+            forwardForce = normalForwardForce * 10; // Increase the speed
+            gameObject.layer = LayerMask.NameToLayer("Intangible"); // Change the layer
+            isIntangible = true; // Track that the player is intangible
+        }
+        else
+        {
+            int powerUpTime = (int)PowerUpManager.instance.GetPowerUpTime("Intangible");
+            if (powerUpTime >= 5)
+            {
+                forwardForce = normalForwardForce * 10;
+            }
+            else if (powerUpTime <= 1)
+            {
+                forwardForce = normalForwardForce * 2;
+            }
+            else
+            {
+                forwardForce = normalForwardForce * powerUpTime * 2;
+            }
+        }
+    }
+
+    // Method to deactivate Intangible power-up effect
+    private void DeactivateIntangibleEffect()
+    {
+        Debug.Log("Intangible Power-Up Expired: Reverting speed and layer.");
+        forwardForce = normalForwardForce * 10; // Revert to normal speed
+        gameObject.layer = normalLayer;         // Revert to the original layer
+        isIntangible = false;                   // Track that the player is no longer intangible
     }
 }
