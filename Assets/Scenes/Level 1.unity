@@ -2529,7 +2529,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterPrefabs:
   - {fileID: 6902614622251272776, guid: f41310331554740a7a1eeb421ea53a86, type: 3}
-  - {fileID: 6902614622251272776, guid: f41310331554740a7a1eeb421ea53a86, type: 3}
+  - {fileID: 342040974734101894, guid: b630ab704d08e40ca839075be64f16cf, type: 3}
   monsterPrefabs:
   - {fileID: 8693202783861946161, guid: b35a525a2d52d42729f851c657e45d69, type: 3}
   - {fileID: 3910373360195349459, guid: 1b5abcb587ced4aa9a9794c8a4091357, type: 3}
