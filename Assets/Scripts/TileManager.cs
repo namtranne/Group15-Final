@@ -69,11 +69,8 @@ public class TileManager : MonoBehaviour
         if(totalTiles < 3) {
             obstacleIndex = 0;
         }
-        else {
-            obstacleIndex = 0;
-        }
 
-        if(totalTiles > 0 && totalTiles % 1 == 0) {
+        if(totalTiles > 0 && totalTiles % 5 == 0) {
             isGeneratingPowerUp = true;
         }
 
@@ -110,8 +107,7 @@ public class TileManager : MonoBehaviour
         }
 
         int obstacleIndex = Random.Range(0, obstacleTiles.Length);
-        // int obstacleIndex = Random.Range(10, 11);
-        // obstacleIndex = 8;
+
         GameObject obsGo = Instantiate(obstacleTiles[obstacleIndex], 
                                 roadGo.transform.position, roadGo.transform.rotation);
         obsGo.transform.SetParent(roadGo.transform);
