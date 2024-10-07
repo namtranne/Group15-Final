@@ -28,7 +28,6 @@ public class PlayerCollision : MonoBehaviour
         }
         movement.enabled = false;
         movement.Burn();
-        Invoke("EndGame", 1);
         FindObjectOfType<GameManager>().EndGame();
     }
 
