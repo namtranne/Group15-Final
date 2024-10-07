@@ -11,7 +11,7 @@ public class LoadCurrentAmount : MonoBehaviour
     void Start()
     {
         filePath = Application.dataPath + "/current-amount.txt";
-        LoadText();
+        // LoadText();
     }
 
     public void SaveText(string content)

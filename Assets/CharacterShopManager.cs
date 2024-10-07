@@ -29,6 +29,9 @@ public class CharacterShopManager : MonoBehaviour
 
     public TextMeshPro textTooltip;
     public TextMeshPro textCurrentAmount;
+    public GameObject messagePanel;
+    public TextMeshProUGUI messageText;
+
     private int currentAmount;
 
     private void Start()
@@ -148,30 +151,52 @@ public class CharacterShopManager : MonoBehaviour
         }
 
         UpdateSelectedCharacters();
+        SaveSelectedData();
     }
 
     public void OnBuyButtonClicked()
     {
-        if (clickedPlayerIndex >= 0 && clickedPlayerIndex != 2 &&!playersBought.Contains(clickedPlayerIndex) && currentAmount >= 3000)
-        {
-            playersBought.Add(clickedPlayerIndex);
-            selectedPlayerIndex = clickedPlayerIndex;
-            currentAmount -= 3000; // Deduct price
-            SaveBoughtData();
-            SaveSelectedData();
-            SaveCurrentAmount();
-            Debug.Log("Mua Player thành công!");
-        }
+        int price = 3000; // Assume price is 3000 for both players and bosses
 
-        if (clickedBossIndex >= 0 && !bossesBought.Contains(clickedBossIndex) && currentAmount >= 3000)
+        if (clickedPlayerIndex >= 0 && !playersBought.Contains(clickedPlayerIndex))
         {
-            bossesBought.Add(clickedBossIndex);
-            selectedBossIndex = clickedBossIndex;
-            currentAmount -= 3000; // Deduct price
-            SaveBoughtData();
-            SaveSelectedData();
-            SaveCurrentAmount();
-            Debug.Log("Mua Boss thành công!");
+            if (currentAmount >= price)
+            {
+                currentAmount -= price;
+                playersBought.Add(clickedPlayerIndex);
+                selectedPlayerIndex = clickedPlayerIndex;
+                SaveBoughtData();
+                SaveSelectedData();
+                SaveCurrentAmount();
+                textCurrentAmount.text = "Your amount: " + currentAmount;
+                Debug.Log("Mua Player thành công!");
+            }
+            else
+            {
+                ShowMessage("Not enough money to buy this player!");
+            }
+        }
+        else if (clickedBossIndex >= 0 && !bossesBought.Contains(clickedBossIndex))
+        {
+            if (currentAmount >= price)
+            {
+                currentAmount -= price;
+                bossesBought.Add(clickedBossIndex);
+                selectedBossIndex = clickedBossIndex;
+                SaveBoughtData();
+                SaveSelectedData();
+                SaveCurrentAmount();
+                textCurrentAmount.text = "Your amount: " + currentAmount;
+                Debug.Log("Mua Boss thành công!");
+            }
+            else
+            {
+                ShowMessage("Not enough money to buy this boss!");
+            }
+        }
+        else
+        {
+            ShowMessage("Character is already purchased!");
         }
 
         UpdateSelectedCharacters();
@@ -266,6 +291,18 @@ public class CharacterShopManager : MonoBehaviour
     {
         File.WriteAllText(currentAmountPath, currentAmount.ToString());
         textCurrentAmount.text = $"Your amount: {currentAmount}";
+    }
+
+    private void ShowMessage(string message)
+    {
+        messageText.text = message;
+        messagePanel.SetActive(true);
+        Invoke(nameof(HideMessage), 2f); // Hide the message after 2 seconds
+    }
+
+    private void HideMessage()
+    {
+        messagePanel.SetActive(false);
     }
 
     public void UnHoverButton()
