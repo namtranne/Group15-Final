@@ -34,7 +34,7 @@ public class EndGameSelection : MonoBehaviour
         scoreTextComponent.text = currentScore.ToString();
 
         scorefilePath = Application.dataPath + "/top-runners.txt";
-        gemfilePath = Application.dataPath + "/current_amount.txt";
+        gemfilePath = Application.dataPath + "/current-amount.txt";
 
         // ScoreLoadText();
         // LoadText();

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.IO;
 
 public class LoadCharacter : MonoBehaviour
 {
@@ -13,13 +14,24 @@ public class LoadCharacter : MonoBehaviour
     public GameObject scoreObject; // GameObject that holds the Score script
     public GameObject waterLayer;
 
+    private int selectedPlayerIndex = -1;
+    private int selectedBossIndex = -1;
+
+    private string playerSelectedPath;
+    private string bossSelectedPath;
+
     void Start()
     {
-        int selectedCharacter = PlayerPrefs.GetInt("selectedCharacter") % characterPrefabs.Length;
+        playerSelectedPath = Application.dataPath + "/player-selected.txt";
+        bossSelectedPath = Application.dataPath + "/boss-selected.txt";
+
+        LoadSelectedData();
+
+        int selectedCharacter = selectedPlayerIndex % characterPrefabs.Length;
         GameObject prefab = characterPrefabs[selectedCharacter];
         GameObject clone = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
 
-        GameObject monster = Instantiate(monsterPrefabs[0], spawnPoint.position - new Vector3(0,0,30), Quaternion.identity);
+        GameObject monster = Instantiate(monsterPrefabs[selectedBossIndex], spawnPoint.position - new Vector3(0,0,30), Quaternion.identity);
 
         // Get the components
         TileManager tileManagerComponent = tileManager.GetComponent<TileManager>();
@@ -35,5 +47,26 @@ public class LoadCharacter : MonoBehaviour
 
         // Set the label text to the character prefab's name
         label.text = prefab.name;
+    }
+
+    private void LoadSelectedData()
+    {
+        if (File.Exists(playerSelectedPath))
+        {
+            string content = File.ReadAllText(playerSelectedPath);
+            if (int.TryParse(content, out int index))
+            {
+                selectedPlayerIndex = index;
+            }
+        }
+
+        if (File.Exists(bossSelectedPath))
+        {
+            string content = File.ReadAllText(bossSelectedPath);
+            if (int.TryParse(content, out int index))
+            {
+                selectedBossIndex = index;
+            }
+        }
     }
 }
