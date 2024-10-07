@@ -107,7 +107,6 @@ public class EndGameSelection : MonoBehaviour
         File.WriteAllLines(scorefilePath, lines);
 
         Text scoreTextComponent = scoreText.GetComponent<Text>();
-        // scoreTextComponent.text = string.Join("\n", lines);
         Debug.Log("Top runners saved.");
     }
 
