@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public float restartDelay = 1f;
     private int currentCrystals = 0;
     public GameObject crystalText;  // This should be a UI Text element
+    public GameObject scoreText;
     public GameObject completeLevelUI;
     public static GameManager instance;
 
@@ -32,7 +33,21 @@ public class GameManager : MonoBehaviour
 
     void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Text crystalTextComponent = crystalText.GetComponent<Text>();
+        int crystal_text = int.Parse(crystalTextComponent.text);
+
+       
+        Text scoreTextComponent = scoreText.GetComponent<Text>();
+        int score_text = int.Parse(scoreTextComponent.text);
+
+       
+        PlayerPrefs.SetInt("crystalTextComponent", crystal_text);
+        PlayerPrefs.SetInt("scoreTextComponent", score_text);
+
+       
+        SceneManager.LoadScene(2);
+
+        
     }
 
     // Method to add crystals and update UI

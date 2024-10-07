@@ -1971,6 +1971,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3478335049762576312, guid: 1ddcd6509665ee54f8a0e8bf4d808a0b, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 456916821}
+    - target: {fileID: 3478335049762576312, guid: 1ddcd6509665ee54f8a0e8bf4d808a0b, type: 3}
       propertyPath: crystalText
       value: 
       objectReference: {fileID: 732082551}
