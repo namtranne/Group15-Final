@@ -14399,6 +14399,7 @@ GameObject:
   - component: {fileID: -8559792917978380756}
   - component: {fileID: 7574757179563304847}
   - component: {fileID: 2646969996550285065}
+  - component: {fileID: -1463243199094709613}
   m_Layer: 0
   m_Name: FireSkill003
   m_TagString: Lava
@@ -19346,6 +19347,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxCollider: {fileID: 7574757179563304847}
+--- !u!114 &-1463243199094709613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6985345329362671104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 173c480badc474c19bdb67c3c0ebfd4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6985345329631539344
 GameObject:
   m_ObjectHideFlags: 0
